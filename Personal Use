@@ -1,0 +1,30 @@
+# from pytube import YouTube
+import youtube_dl
+
+# link=input('Enter video link: ')
+# video=YouTube(link)
+# print("****Video Title****")
+# print(video.title)
+
+# print("****Video Thumbnail****")
+# print(video.thumbnail_url)
+
+# print("****Download Video****")
+# video=video.streams.get_highest_resolution()
+# video.download()
+
+print("****Download Audio From Video****")
+def get_mp3():
+    video_info = youtube_dl.YoutubeDL().extract_info(
+        url = input('Enter video URL: '), download=False
+    )
+    
+    options = {
+        'format':'bestaudio/best',
+        'keepvideo' : False,
+        'outtmpl' : f"{video_info['title']}.mp3",
+    }
+    with youtube_dl.YoutubeDL(options) as ydl:
+        ydl.download([video_info['webpage_url']])
+
+get_mp3()
